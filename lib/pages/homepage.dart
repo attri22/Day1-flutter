@@ -1,17 +1,15 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
-class Homepage extends StatelessWidget {
-  final int days = 30;
-  final String name = "TeddyDaddy";
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("TeddyDaddy Company"),
+        title: Text("TeddyDaddy App"),
       ),
       body: Center(
         child: Container(
-          child: Text('Welcome to my world'),
+          child: Text("Welcome to TeddyDaddy App Store"),
         ),
       ),
       drawer: Drawer(),
