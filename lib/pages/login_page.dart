@@ -1,103 +1,106 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/utils/Routes.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              width: 500,
-              height: 600,
-              child: Image.asset(
-                "assets/images/pic1.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text(
-              "Welcome",
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Enter username",
-                      labelText: "Username",
-                    ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: 390,
+                  child: Image.asset(
+                    "assets/images/hey.png",
+                    fit: BoxFit.fill,
                   ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Enter password",
-                      labelText: "Password",
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Password cannot be empty";
-                      } else if (value.length < 6) {
-                        return "Password length should be atleast 6";
-                      }
-
-                      return null;
-                    },
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  "Welcome",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(
-                    height: 40.0,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.0),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: "Enter username",
+                          labelText: "Username",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Username cannot be empty";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: "Enter password",
+                          labelText: "Password",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Password cannot be empty";
+                          } else if (value.length < 6) {
+                            return "Password length should be at least 6";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 20.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Form Submitted Successfully'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          }
+                        },
+                        child: Text('Submit'),
+                      ),
+                      SizedBox(height: 20.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, MyRoutes.homeRoute);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Color.fromARGB(255, 239, 239, 247),
+                          backgroundColor: Color.fromARGB(255, 46, 40, 229),
+                          elevation: 5,
+                        ),
+                        child: Text('Login'),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    child: Text("Login"),
-                    style: TextButton.styleFrom(),
-                    onPressed: () {
-                      print("Hello User");
-                    },
-                  ),
-                  // Material(
-                  //   color: Colors.deepPurple,
-                  //   borderRadius:
-                  //       BorderRadius.circular(changeButton ? 50 : 8),
-                  //   child: InkWell(
-                  //     onTap: () => moveToHome(context),
-                  //     child: AnimatedContainer(
-                  //       duration: Duration(seconds: 1),
-                  //       width: changeButton ? 50 : 150,
-                  //       height: 50,
-                  //       alignment: Alignment.center,
-                  //       child: changeButton
-                  //           ? Icon(
-                  //               Icons.done,
-                  //               color: Colors.white,
-                  //             )
-                  //           : Text(
-                  //               "Login",
-                  //               style: TextStyle(
-                  //                   color: Colors.white,
-                  //                   fontWeight: FontWeight.bold,
-                  //                   fontSize: 18),
-                  //             ),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-            )
-          ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
